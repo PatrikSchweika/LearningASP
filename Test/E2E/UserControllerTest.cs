@@ -15,7 +15,7 @@ public class UserControllerTest
 {
     private readonly HttpClient _client;
     private readonly ITestOutputHelper _testOutputHelper;
-    
+
     private readonly CreateUserDto _createUserDto = new()
     {
         FirstName = "Johny",
@@ -25,9 +25,8 @@ public class UserControllerTest
     public UserControllerTest(ITestOutputHelper testOutputHelper)
     {
         var factory = new LearningAspWebApplicationFactory();
-        
+
         _client = factory
-                
             .WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(services =>
@@ -40,7 +39,7 @@ public class UserControllerTest
             .CreateClient();
         _testOutputHelper = testOutputHelper;
     }
-    
+
     [Fact]
     public async Task GetAllUsers_ShouldReturnEmptyList()
     {
@@ -62,15 +61,15 @@ public class UserControllerTest
         Assert.NotNull(user);
         Assert.Equal(_createUserDto.FirstName, user.FirstName);
         Assert.Equal(_createUserDto.LastName, user.LastName);
-        
+
         _testOutputHelper.WriteLine($"New user id: ${user.Id}");
     }
-    
+
     [Fact]
     public async Task GetAllUsers_ShouldReturnOneUser()
     {
         await AddUser(_createUserDto);
-        
+
         var response = await _client.GetAsync("/user");
 
         response.EnsureSuccessStatusCode();
@@ -85,7 +84,7 @@ public class UserControllerTest
     public async Task DeleteUser_ShouldDeleteUser()
     {
         var user = await AddUser(_createUserDto);
-        
+
         var response = await _client.DeleteAsync($"/user/{user.Id}");
 
         response.EnsureSuccessStatusCode();
@@ -95,13 +94,13 @@ public class UserControllerTest
     public async Task GetUserById_ShouldReturnUser()
     {
         var user = await AddUser(_createUserDto);
-        
+
         var response = await _client.GetAsync($"/user/{user.Id}");
-        
+
         response.EnsureSuccessStatusCode();
-        
+
         var fetchedUser = await response.Content.ReadFromJsonAsync<User>();
-        
+
         Assert.Equivalent(user, fetchedUser);
     }
 
@@ -109,7 +108,7 @@ public class UserControllerTest
     public async Task GetUserById_ShouldReturnNotFound()
     {
         var response = await _client.GetAsync($"/user/1");
-        
+
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
@@ -124,13 +123,13 @@ public class UserControllerTest
             FirstName = "Phillipe",
             LastName = "Eckhart"
         };
-        
+
         var response = await _client.PutAsJsonAsync($"/user", editedUser);
-        
+
         response.EnsureSuccessStatusCode();
-        
+
         var responseUser = await response.Content.ReadFromJsonAsync<User>();
-        
+
         Assert.Equivalent(editedUser, responseUser);
     }
 
@@ -143,11 +142,11 @@ public class UserControllerTest
         {
             FirstName = "Dickie"
         };
-        
+
         var response = await _client.PatchAsJsonAsync($"/user/{user.Id}", patchUser);
 
         response.EnsureSuccessStatusCode();
-        
+
         var responseUser = await response.Content.ReadFromJsonAsync<User>();
 
         Assert.NotNull(responseUser);

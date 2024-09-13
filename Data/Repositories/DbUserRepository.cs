@@ -26,32 +26,28 @@ public class DbUserRepository : IUserRepository
         var addedUser = _context.Users.Add(user);
 
         _context.SaveChanges();
-        
+
         return addedUser.Entity;
     }
 
     public User? Update(User user)
     {
-       var updatedUser = _context.Users.Update(user);
-       
-       
-       
-       _context.SaveChanges();
-       
-       return updatedUser.Entity;
+        var updatedUser = _context.Users.Update(user);
+
+
+        _context.SaveChanges();
+
+        return updatedUser.Entity;
     }
 
     public User? Remove(int id)
     {
         var user = _context.Users.Find(id);
 
-        if (user == null)
-        {
-            return null;
-        }
-        
+        if (user == null) return null;
+
         _context.Users.Remove(user);
-        
+
         _context.SaveChanges();
 
         return user;

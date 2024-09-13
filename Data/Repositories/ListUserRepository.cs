@@ -4,9 +4,9 @@ namespace Data.Repositories;
 
 public class ListUserRepository : IUserRepository
 {
-    private readonly List<User> _users = new List<User>();
+    private readonly List<User> _users = new();
     private int _nextId = 1;
-    
+
     public IEnumerable<User> GetAll()
     {
         return _users;
@@ -20,7 +20,7 @@ public class ListUserRepository : IUserRepository
     public User Create(User user)
     {
         var userWithId = new User(_nextId++, user.FirstName, user.LastName);
-        
+
         _users.Add(userWithId);
 
         return userWithId;
@@ -30,11 +30,8 @@ public class ListUserRepository : IUserRepository
     {
         var index = _users.FindIndex(userA => userA.Id == user.Id);
 
-        if (index == -1)
-        {
-            return null;
-        }
-        
+        if (index == -1) return null;
+
         _users[index] = user;
 
         return user;
@@ -44,13 +41,10 @@ public class ListUserRepository : IUserRepository
     {
         var index = _users.FindIndex(userA => userA.Id == id);
 
-        if (index == -1)
-        {
-            return null;
-        }
-        
+        if (index == -1) return null;
+
         var user = _users[index];
-        
+
         _users.RemoveAt(index);
 
         return user;

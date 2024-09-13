@@ -9,12 +9,12 @@ namespace LearningASP.Controllers;
 public class IndexController
 {
     private readonly AppConfiguration _configuration;
-    
+
     public IndexController(IOptions<AppConfiguration> options)
     {
         _configuration = options.Value;
     }
-    
+
     [HttpGet]
     public async Task<string> Get()
     {

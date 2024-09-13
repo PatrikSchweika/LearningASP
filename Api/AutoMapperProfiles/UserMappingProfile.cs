@@ -2,13 +2,12 @@
 using LearningASP.DTO;
 using LearningASP.Model;
 
-namespace LearningASP.AutoMapperProfiles
+namespace LearningASP.AutoMapperProfiles;
+
+public class UserMappingProfile : Profile
 {
-    public class UserMappingProfile : Profile
+    public UserMappingProfile()
     {
-        public UserMappingProfile()
-        {
-            CreateMap<CreateUserDto, User>();
-        }
+        CreateMap<CreateUserDto, User>();
     }
 }

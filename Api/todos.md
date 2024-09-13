@@ -1,20 +1,20 @@
 ﻿# Todos
 
 - [x] Configuration/Options object
-- [x] Database with entity framework 
-- [ ] Authentication 
+- [x] Database with entity framework
+- [ ] Authentication
 - [ ] Frontend - Blazor, React?
 - [x] Create git repo
 - [ ] CI/CD Pipeline
-  - [ ] Run tests
-  - [ ] Run linter
-  - [ ] Deploy to AWS
+    - [ ] Run tests
+    - [ ] Run linter
+    - [ ] Deploy to AWS
 - Separate packages into different projects:
-   - [ ] Domain (services)
-   - [x] Data (database and entities)
-   - [x] Tests
-   - [x] Api
-   - [ ] Frontend
+    - [ ] Domain (services)
+    - [x] Data (database and entities)
+    - [x] Tests
+    - [x] Api
+    - [ ] Frontend
 
 ## Minor todos
 

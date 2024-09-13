@@ -10,11 +10,11 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
         builder
             .HasKey(user => user.Id);
-        
+
         builder
             .Property(user => user.FirstName)
             .IsRequired();
-        
+
         builder
             .Property(user => user.LastName)
             .IsRequired();

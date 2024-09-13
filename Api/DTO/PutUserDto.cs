@@ -4,8 +4,7 @@ namespace LearningASP.DTO;
 
 public record PutUserDto
 {
-    [Required]
-    public required int Id { get; init; }
+    [Required] public required int Id { get; init; }
 
     [Required]
     [StringLength(100, MinimumLength = 4)]

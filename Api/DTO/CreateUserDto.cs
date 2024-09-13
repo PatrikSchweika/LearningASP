@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace LearningASP.DTO;
+
 public record CreateUserDto()
 {
     [Required]
