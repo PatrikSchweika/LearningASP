@@ -4,7 +4,7 @@
 - [x] Database with entity framework 
 - [ ] Authentication 
 - [ ] Frontend - Blazor, React?
-- [ ] Create git repo
+- [x] Create git repo
 - [ ] CI/CD Pipeline
   - [ ] Run tests
   - [ ] Run linter
