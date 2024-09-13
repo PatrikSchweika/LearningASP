@@ -1,0 +1,43 @@
+@LearningASP_HostAddress = http://localhost:5229
+
+GET {{LearningASP_HostAddress}}/User
+Accept: application/json
+
+###
+
+POST {{LearningASP_HostAddress}}/User
+Content-Type: application/json
+
+{
+  "FirstName": "Johny",
+  "LastName": "Smith"
+}
+
+###
+
+GET {{LearningASP_HostAddress}}/User/1
+Accept: application/json
+
+###
+
+DELETE {{LearningASP_HostAddress}}/User/1
+
+###
+
+PUT {{LearningASP_HostAddress}}/User
+
+{
+  "Id": 1,
+  "FirstName": "Frankie",
+  "LastName": "Smith"
+}
+
+###
+
+PATCH {{LearningASP_HostAddress}}/User/1
+Content-Type: application/json
+
+{
+  "FirstName": "Dickie"
+}
+
