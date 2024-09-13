@@ -1,8 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
+using Data.Repositories;
 using LearningASP.DTO;
 using LearningASP.Model;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit.Abstractions;
 
 namespace LearningASPTest.E2E;
@@ -20,9 +24,20 @@ public class UserControllerTest
 
     public UserControllerTest(ITestOutputHelper testOutputHelper)
     {
-        var factory = new LearningASPWebApplicationFactory();
+        var factory = new LearningAspWebApplicationFactory();
         
-        _client = factory.CreateClient();
+        _client = factory
+                
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    // Replace database repository with list repository
+                    services.RemoveAll<IUserRepository>();
+                    services.AddScoped<IUserRepository, ListUserRepository>();
+                });
+            })
+            .CreateClient();
         _testOutputHelper = testOutputHelper;
     }
     
