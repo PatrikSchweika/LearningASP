@@ -36,7 +36,7 @@ public class UserControllerTest
                 });
             })
             .CreateClient();
-        
+
         _testOutputHelper = testOutputHelper;
     }
 
@@ -85,8 +85,8 @@ public class UserControllerTest
     {
         var user = await AddUser(_createUserDto);
 
-        
-        
+
+
         var response = await _client.DeleteAsync($"/user/{user.Id}");
 
         response.EnsureSuccessStatusCode();
