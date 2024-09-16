@@ -1,7 +1,7 @@
 ﻿export interface AppConfig {
-    apiUrl: string;
+  apiUrl: string
 }
 
 export const APP_CONFIG = {
-    apiUrl: import.meta.env.VITE_API_URL,
+  apiUrl: import.meta.env.VITE_API_URL,
 }
