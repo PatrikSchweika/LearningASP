@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {User} from "./models/user.ts";
 import {styled} from "@mui/material";
+import {APP_CONFIG} from "./setup/app-config.ts";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,11 +13,11 @@ function App() {
   const [users, setUsers] = useState<User[]>([])  
   
   useEffect(() => {
-      fetch('http://localhost:5229')
+      fetch(APP_CONFIG.apiUrl)
           .then(res => res.text())
           .then(text => setApiMessage(text))
       
-      fetch('http://localhost:5229/user')
+      fetch(`${APP_CONFIG.apiUrl}/user`)
           .then(res => res.json())
           .then(users => setUsers(users))
   }, [])  
