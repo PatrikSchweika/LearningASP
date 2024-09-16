@@ -6,9 +6,9 @@
 - [ ] Frontend - Blazor, React?
 - [x] Create git repo
 - [ ] CI/CD Pipeline
-    - [ ] Run tests
+    - [x] Run tests
     - [ ] Run linter
-    - [ ] Deploy to AWS
+    - [x] Deploy to AWS
 - Separate packages into different projects:
     - [ ] Domain (services)
     - [x] Data (database and entities)
