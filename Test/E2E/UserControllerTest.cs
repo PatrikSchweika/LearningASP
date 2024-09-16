@@ -26,17 +26,17 @@ public class UserControllerTest
     {
         var factory = new LearningAspWebApplicationFactory();
 
+        // integration test docs: https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0
         _client = factory
             .WithWebHostBuilder(builder =>
             {
                 builder.ConfigureTestServices(services =>
                 {
-                    // Replace database repository with list repository
-                    services.RemoveAll<IUserRepository>();
-                    services.AddScoped<IUserRepository, ListUserRepository>();
+                    services.AddSingleton<IUserRepository, ListUserRepository>();
                 });
             })
             .CreateClient();
+        
         _testOutputHelper = testOutputHelper;
     }
 
