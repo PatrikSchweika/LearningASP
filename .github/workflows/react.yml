@@ -9,9 +9,12 @@ on:
   pull_request:
     branches: [ "master" ]
 
+defaults:
+  run:
+    working-directory: ./client
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +24,6 @@ jobs:
         with:
           node-version: 20.x
           cache: 'npm'
-      - run: cd client
       - name: Install depdencies  
         run: npm ci
       - name: Build  
