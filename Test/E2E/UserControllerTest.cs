@@ -1,12 +1,16 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
+
 using Data.Repositories;
+
 using LearningASP.DTO;
 using LearningASP.Model;
+
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+
 using Xunit.Abstractions;
 
 namespace LearningASPTest.E2E;

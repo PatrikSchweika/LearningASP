@@ -1,10 +1,13 @@
-using LearningASP.AutoMapperProfiles;
-using LearningASP.NewFolder;
 using System.Diagnostics;
+
 using Data;
 using Data.Repositories;
+
+using LearningASP.AutoMapperProfiles;
+using LearningASP.NewFolder;
 using LearningASP.Options;
 using LearningASP.Services;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
