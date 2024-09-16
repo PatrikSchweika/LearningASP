@@ -1,12 +1,12 @@
-import viteLogo from "/vite.svg"
-import reactLogo from "../assets/react.svg"
-import { UserList } from "./UserList.tsx"
-import { useEffect, useState } from "react"
-import { User } from "../models/user.ts"
-import { APP_CONFIG } from "../setup/app-config.ts"
+import viteLogo from '/vite.svg'
+import reactLogo from '../assets/react.svg'
+import { UserList } from './UserList.tsx'
+import { useEffect, useState } from 'react'
+import { User } from '../models/user.ts'
+import { APP_CONFIG } from '../setup/app-config.ts'
 
 export const HomePage = () => {
-  const [apiMessage, setApiMessage] = useState("")
+  const [apiMessage, setApiMessage] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
   useEffect(() => {

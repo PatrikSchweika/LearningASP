@@ -1,12 +1,11 @@
-import "./App.css"
-import { HomePage } from "./components/HomePage.tsx"
+import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { AppRouter } from './setup/app-router.tsx'
+
+const router = createBrowserRouter(AppRouter)
 
 function App() {
-  return (
-    <>
-      <HomePage />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
