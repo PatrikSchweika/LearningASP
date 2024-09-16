@@ -16,7 +16,7 @@ public class IndexController
     }
 
     [HttpGet]
-    public async Task<string> Get()
+    public string Get()
     {
         return _configuration.WelcomeMessage;
     }

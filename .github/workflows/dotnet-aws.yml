@@ -32,7 +32,7 @@ jobs:
         cd ${{github.run_id}}
         zip -r ../${{github.run_id}}.zip .
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4.3.3
+      uses: actions/upload-artifact@v4
       with:
         name: deploy-files
         path: ${{github.run_id}}.zip
@@ -48,7 +48,6 @@ jobs:
       AWS_REGION: ${{ vars.AWS_REGION }}
 
     steps:
-      - uses: actions/download-artifact@v4.1.7
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -56,6 +55,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Deploy
+        uses: actions/download-artifact@v4
         run: |
           aws s3 cp "deploy-files/${{github.run_id}}.zip" s3://elasticbeanstalk-${{ env.AWS_REGION }}-${{ secrets.AWS_ACCOUNT_ID }}/artifact/LearningASP-dev/
           aws elasticbeanstalk create-application-version --application-name $ELASTIC_BEANSTALK_NAME --version-label ${{github.run_id}} --description ${{github.run_id}} --source-bundle S3Bucket="elasticbeanstalk-${{ env.AWS_REGION }}-${{ secrets.AWS_ACCOUNT_ID }}",S3Key="artifact/LearningASP-dev/${{github.run_id}}.zip"

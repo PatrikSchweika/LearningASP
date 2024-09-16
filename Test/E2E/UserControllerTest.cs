@@ -85,6 +85,8 @@ public class UserControllerTest
     {
         var user = await AddUser(_createUserDto);
 
+        
+        
         var response = await _client.DeleteAsync($"/user/{user.Id}");
 
         response.EnsureSuccessStatusCode();
@@ -155,12 +157,16 @@ public class UserControllerTest
         Assert.Equal(responseUser.LastName, user.LastName);
     }
 
-    private async Task<User?> AddUser(CreateUserDto createUserDto)
+    private async Task<User> AddUser(CreateUserDto createUserDto)
     {
         var response = await _client.PostAsJsonAsync("/user", createUserDto);
 
         response.EnsureSuccessStatusCode();
 
-        return await response.Content.ReadFromJsonAsync<User>();
+        var user = await response.Content.ReadFromJsonAsync<User>();
+
+        Assert.NotNull(user);
+
+        return user;
     }
 }
