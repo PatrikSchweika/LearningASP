@@ -22,6 +22,7 @@ jobs:
       - name: Use Node.js 20x
         uses: actions/setup-node@v4
         with:
+          cache-dependency-path: client/package-lock.json
           node-version: 20.x
           cache: 'npm'
       - name: Install depdencies  
