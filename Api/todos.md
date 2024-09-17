@@ -2,19 +2,22 @@
 
 - [x] Configuration/Options object
 - [x] Database with entity framework
-- [ ] Authentication
-- [ ] Frontend - Blazor, React?
+- [ ] Authentication (JWT tokens)
+- [ ] Configure CORS for API
+  - Only accessible through frontend
+- [x] Frontend - Blazor, React?
 - [x] Create git repo
 - [ ] CI/CD Pipeline
     - [x] Run tests
-    - [ ] Run linter
-    - [x] Deploy to AWS
-- Separate packages into different projects:
-    - [ ] Domain (services)
+    - [x] Run linter
+    - [x] Deploy API to AWS
+    - [ ] Deploy frontend to AWS
+    - [ ] Setup AWS database
+- [x] Separate packages into different projects:
     - [x] Data (database and entities)
     - [x] Tests
     - [x] Api
-    - [ ] Frontend
+    - [x] Frontend
 
 ## Minor todos
 
