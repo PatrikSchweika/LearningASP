@@ -30,7 +30,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Pack
       run: |
-        dotnet publish -c Release --output "${{ github.workspace }}/${{github.run_id}}"
+        dotnet publish -c Release --output "${{ github.workspace }}/${{github.run_id}}" ./Api/Api.csproj
         cd ${{github.run_id}}
         zip -r ../${{github.run_id}}.zip .
     - name: Upload Artifacts
