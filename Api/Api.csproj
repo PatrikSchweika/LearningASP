@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="13.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,5 +25,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Data\Data.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DTO\Auth\" />
     </ItemGroup>
 </Project>

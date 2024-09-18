@@ -15,7 +15,7 @@ public class RepositoryUserServiceTest
     private readonly Mock<IUserRepository> _mock = new();
     private readonly RepositoryUserService _cut;
 
-    private readonly User _user = new(1, "Peter", "Pan");
+    private readonly User _user = new(1, "peter.pan@test.cz", "hash", "Peter", "Pan");
 
     public RepositoryUserServiceTest()
     {

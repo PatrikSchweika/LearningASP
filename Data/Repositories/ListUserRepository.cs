@@ -17,9 +17,14 @@ public class ListUserRepository : IUserRepository
         return _users.FirstOrDefault(u => u.Id == id);
     }
 
+    public User? GetByEmailAndPassword(string email, string password)
+    {
+        return _users.FirstOrDefault(u => u.Email == email && u.Password == password);
+    }
+
     public User Create(User user)
     {
-        var userWithId = new User(_nextId++, user.FirstName, user.LastName);
+        var userWithId = user with { Id = _nextId++ };
 
         _users.Add(userWithId);
 

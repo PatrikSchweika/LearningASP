@@ -13,6 +13,14 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
             .HasKey(user => user.Id);
 
         builder
+            .Property(user => user.Email)
+            .IsRequired();
+
+        builder
+            .Property(user => user.Password)
+            .IsRequired();
+
+        builder
             .Property(user => user.FirstName)
             .IsRequired();
 

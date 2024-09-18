@@ -21,6 +21,11 @@ public class DbUserRepository : IUserRepository
         return _context.Users.Find(id);
     }
 
+    public User? GetByEmailAndPassword(string email, string password)
+    {
+        return _context.Users.FirstOrDefault(user => user.Email == email && user.Password == password);
+    }
+
     public User Create(User user)
     {
         var addedUser = _context.Users.Add(user);

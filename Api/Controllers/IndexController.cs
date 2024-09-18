@@ -7,7 +7,7 @@ namespace LearningASP.Controllers;
 
 [ApiController]
 [Route("")]
-public class IndexController
+public class IndexController : ControllerBase
 {
     private readonly AppConfiguration _configuration;
 

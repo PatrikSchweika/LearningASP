@@ -32,7 +32,7 @@ public class UserController : ControllerBase
         if (_configuration.ReturnDummyUsers)
             return
             [
-                new User(69, "Pepa", "Smith")
+                new User(69, "pepa.smith@google.com", "hash", "Pepa", "Smith")
             ];
 
         return _userService.GetAll();
@@ -42,34 +42,6 @@ public class UserController : ControllerBase
     public ActionResult<User?> Get(int id)
     {
         var user = _userService.GetById(id);
-
-        if (user == null) return NotFound();
-
-        return user;
-    }
-
-    [HttpPost]
-    public User Create([FromBody] CreateUserDto user)
-    {
-        return _userService.Add(user);
-    }
-
-    [HttpPut]
-    public User? Replace([FromBody] PutUserDto user)
-    {
-        return _userService.Update(user);
-    }
-
-    [HttpPatch("{id}")]
-    public User? Patch(int id, [FromBody] PatchUserDto userPatch)
-    {
-        return _userService.Patch(id, userPatch);
-    }
-
-    [HttpDelete("{id}")]
-    public ActionResult<User?> Delete(int id)
-    {
-        var user = _userService.Remove(id);
 
         if (user == null) return NotFound();
 

@@ -9,11 +9,7 @@ public interface IUserService
 
     User? GetById(int id);
 
-    User? Update(PutUserDto dto);
+    User? GetByEmailAndPassword(string email, string password);
 
     User? Patch(int id, PatchUserDto dto);
-
-    User Add(CreateUserDto dto);
-
-    User? Remove(int id);
 }

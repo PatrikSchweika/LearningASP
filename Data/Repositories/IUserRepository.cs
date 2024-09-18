@@ -8,6 +8,8 @@ public interface IUserRepository
 
     public User? GetById(int id);
 
+    public User? GetByEmailAndPassword(string email, string password);
+
     public User Create(User user);
 
     public User? Update(User user);
