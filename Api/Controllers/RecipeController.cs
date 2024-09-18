@@ -1,18 +1,37 @@
-﻿using LearningASP.Model;
+﻿using System.Security.Claims;
+
+using LearningASP.DTO.Recipe;
+using LearningASP.Model;
 using LearningASP.Services;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningASP.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RecipeController(IRecipeService service) : ControllerBase
+[Authorize]
+public class RecipeController(IRecipeService recipeService, IAuthService authService) : ControllerBase
 {
     [HttpGet]
-    public IEnumerable<Recipe> Get()
+    public IEnumerable<Recipe> GetAll()
     {
-        return service.GetAll();
+        return recipeService.GetAll();
+    }
+
+    [HttpGet("User")]
+    public ActionResult<IEnumerable<Recipe>> GetUserRecipes()
+    {
+        var user = authService.GetCurrentUser()!;
+
+        return Ok(user.Recipes.ToList());
+    }
+
+    [HttpPost]
+    public Recipe Create(CreateRecipeDto recipe)
+    {
+        return recipeService.Create(recipe);
     }
 
     // [HttpPost]

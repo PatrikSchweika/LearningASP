@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace LearningASP.Controllers;
 
@@ -11,6 +12,15 @@ public class SecretController : ControllerBase
     [HttpGet]
     public string Get()
     {
-        return "secret";
+        var claims = HttpContext.User.Claims;
+
+        var claimsStr = "";
+
+        foreach (var claim in claims)
+        {
+            claimsStr += $"{claim.Type}: {claim.Value}\n";
+        }
+
+        return claimsStr;
     }
 }

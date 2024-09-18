@@ -14,26 +14,17 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly ILogger<UserController> _logger;
-    private readonly UserControllerConfiguration _configuration;
 
-    public UserController(IUserService userService, ILogger<UserController> logger,
-        IOptions<UserControllerConfiguration> options)
+    public UserController(IUserService userService, ILogger<UserController> logger)
     {
         _userService = userService;
         _logger = logger;
-        _configuration = options.Value;
     }
 
     [HttpGet]
     public IEnumerable<User> Get()
     {
         _logger.LogInformation("Get all users");
-
-        if (_configuration.ReturnDummyUsers)
-            return
-            [
-                new User(69, "pepa.smith@google.com", "hash", "Pepa", "Smith")
-            ];
 
         return _userService.GetAll();
     }

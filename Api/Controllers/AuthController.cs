@@ -1,4 +1,6 @@
-﻿using LearningASP.Services;
+﻿using LearningASP.DTO.Auth;
+using LearningASP.Model;
+using LearningASP.Services;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,9 +13,9 @@ namespace LearningASP.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("login")]
-    public async Task<ActionResult> Login(string email, string password)
+    public ActionResult Login([FromBody] LoginDto loginDto)
     {
-        var token = authService.Login(email, password);
+        var token = authService.Login(loginDto);
 
         if (token == null)
         {
@@ -24,13 +26,21 @@ public class AuthController(IAuthService authService) : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task Register()
+    public ActionResult Register([FromBody] RegisterDto registerDto)
     {
+        var user = authService.Register(registerDto);
 
+        if (user == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok();
     }
 
+    [HttpGet("logout")]
     public async Task Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        // await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }

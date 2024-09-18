@@ -21,9 +21,14 @@ public class DbUserRepository : IUserRepository
         return _context.Users.Find(id);
     }
 
-    public User? GetByEmailAndPassword(string email, string password)
+    public User? GetByEmailAndPasswordHash(string email, string password)
     {
-        return _context.Users.FirstOrDefault(user => user.Email == email && user.Password == password);
+        return _context.Users.FirstOrDefault(user => user.Email == email && user.PasswordHash == password);
+    }
+
+    public User? GetByEmail(string email)
+    {
+        return _context.Users.FirstOrDefault(user => user.Email == email);
     }
 
     public User Create(User user)

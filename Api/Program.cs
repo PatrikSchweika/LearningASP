@@ -4,12 +4,15 @@ using System.Text;
 using Data;
 using Data.Repositories;
 
+using LearningASP;
 using LearningASP.AutoMapperProfiles;
+using LearningASP.Model;
 using LearningASP.NewFolder;
 using LearningASP.Options;
 using LearningASP.Services;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,14 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("UserDb");
+var connectionString = builder.Configuration.GetConnectionString(AppConstants.UserDbConnectionString);
 
 builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.Configure<AppConfiguration>(builder.Configuration);
-builder.Services.Configure<UserControllerConfiguration>(builder.Configuration.GetSection("UserController"));
-builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection(AppConstants.JwtSectionName));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,15 +35,20 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, RepositoryUserService>();
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddTransient<CustomMiddleware>();
+builder.Services.AddTransient<IPasswordHasher<User>, UserPasswordHasher>();
 
-builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+// builder.Services.AddTransient<CustomMiddleware>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+// builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+
+builder.Services.AddAuthentication(AppConstants.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var jwtConfiguration = builder.Configuration.Get<JwtConfiguration>();
+        var jwtConfiguration = builder.Configuration
+            .GetSection(AppConstants.JwtSectionName)
+            .Get<JwtConfiguration>();
 
         if (jwtConfiguration != null)
         {
@@ -78,7 +85,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseMiddleware<CustomMiddleware>();
+// app.UseMiddleware<CustomMiddleware>();
 
 // Custom middleware
 // app.Use(async (context, next) =>
@@ -87,9 +94,6 @@ app.UseMiddleware<CustomMiddleware>();
 //
 //     await next.Invoke();
 // });
-
-// todo: add authentication
-// todo: add e2e tests
 
 app.MapControllers();
 

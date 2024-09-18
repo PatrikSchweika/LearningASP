@@ -17,9 +17,14 @@ public class ListUserRepository : IUserRepository
         return _users.FirstOrDefault(u => u.Id == id);
     }
 
-    public User? GetByEmailAndPassword(string email, string password)
+    public User? GetByEmailAndPasswordHash(string email, string password)
     {
-        return _users.FirstOrDefault(u => u.Email == email && u.Password == password);
+        return _users.FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
+    }
+
+    public User? GetByEmail(string email)
+    {
+        return _users.FirstOrDefault(u => u.Email == email);
     }
 
     public User Create(User user)

@@ -24,22 +24,8 @@ public class RepositoryUserService : IUserService
         return _repository.GetById(id);
     }
 
-    public User? GetByEmailAndPassword(string email, string password)
+    public User? Update(UpdateUserDto dto)
     {
         throw new NotImplementedException();
-    }
-
-    public User? Patch(int id, PatchUserDto dto)
-    {
-        var user = _repository.GetById(id);
-
-        if (user == null) return null;
-
-        var firstName = dto.FirstName ?? user.FirstName;
-        var lastName = dto.LastName ?? user.LastName;
-
-        var updatedUser = new User(id, user.Email, user.Password, firstName, lastName);
-
-        return _repository.Update(updatedUser);
     }
 }

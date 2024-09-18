@@ -20,11 +20,11 @@ public class UserControllerTest
     private readonly HttpClient _client;
     private readonly ITestOutputHelper _testOutputHelper;
 
-    private readonly CreateUserDto _createUserDto = new()
-    {
-        FirstName = "Johny",
-        LastName = "Smith"
-    };
+    // private readonly CreateUserDto _createUserDto = new()
+    // {
+    //     FirstName = "Johny",
+    //     LastName = "Smith"
+    // };
 
     public UserControllerTest(ITestOutputHelper testOutputHelper)
     {

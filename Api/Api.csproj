@@ -26,8 +26,4 @@
     <ItemGroup>
         <ProjectReference Include="..\Data\Data.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="DTO\Auth\" />
-    </ItemGroup>
 </Project>
