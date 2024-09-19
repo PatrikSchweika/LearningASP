@@ -2,7 +2,7 @@
 
 - [x] Configuration/Options object
 - [x] Database with entity framework
-- [ ] Authentication (JWT tokens)
+- [x] Authentication (JWT tokens)
 - [ ] Configure CORS for API
   - Only accessible through frontend
 - [x] Frontend - Blazor, React?

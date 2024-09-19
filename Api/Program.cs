@@ -33,6 +33,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IUserService, RepositoryUserService>();
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -82,7 +84,6 @@ app.UseCors(options =>
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 // app.UseMiddleware<CustomMiddleware>();

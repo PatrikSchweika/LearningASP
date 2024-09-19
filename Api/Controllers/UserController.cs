@@ -3,6 +3,7 @@ using LearningASP.Model;
 using LearningASP.Options;
 using LearningASP.Services;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -10,6 +11,7 @@ namespace LearningASP.Controllers;
 
 [Route("[controller]")]
 [ApiController]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

@@ -4,6 +4,7 @@ using LearningASP.Services;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningASP.Controllers;
@@ -38,7 +39,15 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok();
     }
 
+    [HttpGet("user")]
+    [Authorize]
+    public User GetCurrentUser()
+    {
+        return authService.GetCurrentUser(HttpContext)!;
+    }
+
     [HttpGet("logout")]
+    [Authorize]
     public async Task Logout()
     {
         // await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

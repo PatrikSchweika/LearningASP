@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 using Data.Repositories;
@@ -15,9 +16,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LearningASP.Services;
 
-public class AuthService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IHttpContextAccessor accessor, IOptions<JwtConfiguration> options) : IAuthService
+public class AuthService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IOptions<JwtConfiguration> options) : IAuthService
 {
     private readonly JwtConfiguration _configuration = options.Value;
+
+
+    private string GenerateSalt()
+    {
+        byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
+
+        return Convert.ToBase64String(salt);
+    }
 
     public User? Register(RegisterDto registerDto)
     {
@@ -28,26 +37,38 @@ public class AuthService(IUserRepository userRepository, IPasswordHasher<User> p
             return null;
         }
 
+        var salt = GenerateSalt();
+
         var newUser = new User
         {
             Id = 0,
             FirstName = registerDto.FirstName,
             LastName = registerDto.LastName,
             Email = registerDto.Email,
-            PasswordHash = passwordHasher.HashPassword(null, registerDto.Password),
+            Salt = salt,
+            PasswordHash = "",
             Recipes = []
         };
+
+        var passwordHash = passwordHasher.HashPassword(newUser, registerDto.Password);
+
+        newUser = newUser with { PasswordHash = passwordHash, Salt = salt };
 
         return userRepository.Create(newUser);
     }
 
     public string? Login(LoginDto loginDto)
     {
-        var passwordHash = passwordHasher.HashPassword(null, loginDto.Password);
-
-        var user = userRepository.GetByEmailAndPasswordHash(loginDto.Email, passwordHash);
+        var user = userRepository.GetByEmail(loginDto.Email);
 
         if (user == null)
+        {
+            return null;
+        }
+
+        var verificationResult = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
+
+        if (verificationResult == PasswordVerificationResult.Failed)
         {
             return null;
         }
@@ -80,14 +101,9 @@ public class AuthService(IUserRepository userRepository, IPasswordHasher<User> p
         throw new NotImplementedException();
     }
 
-    public User? GetCurrentUser()
+    public User? GetCurrentUser(HttpContext context)
     {
-        if (accessor.HttpContext == null)
-        {
-            return null;
-        }
-
-        var parsed = int.TryParse(accessor.HttpContext.User.FindFirst(AppClaimTypes.UserId).Value, out int userId);
+        var parsed = int.TryParse(context.User.FindFirst(AppClaimTypes.UserId)?.Value ?? "", out int userId);
 
         if (!parsed)
         {

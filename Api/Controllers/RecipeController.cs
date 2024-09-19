@@ -23,7 +23,7 @@ public class RecipeController(IRecipeService recipeService, IAuthService authSer
     [HttpGet("User")]
     public ActionResult<IEnumerable<Recipe>> GetUserRecipes()
     {
-        var user = authService.GetCurrentUser()!;
+        var user = authService.GetCurrentUser(HttpContext)!;
 
         return Ok(user.Recipes.ToList());
     }

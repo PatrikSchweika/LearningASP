@@ -1,5 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-
+﻿
 using LearningASP.DTO.Auth;
 using LearningASP.Model;
 
@@ -12,5 +11,5 @@ public interface IAuthService
 
     public void Logout();
 
-    public User? GetCurrentUser();
+    public User? GetCurrentUser(HttpContext context);
 }

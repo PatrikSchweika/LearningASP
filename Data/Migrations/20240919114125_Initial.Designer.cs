@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240918104156_Initial")]
+    [Migration("20240919114125_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,10 +27,7 @@ namespace Data.Migrations
             modelBuilder.Entity("LearningASP.Model.Recipe", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -40,12 +37,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -74,6 +66,10 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -83,7 +79,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("LearningASP.Model.User", "User")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
