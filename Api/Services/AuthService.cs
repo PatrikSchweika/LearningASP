@@ -16,6 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LearningASP.Services;
 
+public class UserWithEmailExistsException : Exception;
+
 public class AuthService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher, IOptions<JwtConfiguration> options) : IAuthService
 {
     private readonly JwtConfiguration _configuration = options.Value;
@@ -34,7 +36,7 @@ public class AuthService(IUserRepository userRepository, IPasswordHasher<User> p
 
         if (existingUser != null)
         {
-            return null;
+            throw new UserWithEmailExistsException();
         }
 
         var salt = GenerateSalt();
@@ -103,15 +105,20 @@ public class AuthService(IUserRepository userRepository, IPasswordHasher<User> p
 
     public User? GetCurrentUser(HttpContext context)
     {
-        var parsed = int.TryParse(context.User.FindFirst(AppClaimTypes.UserId)?.Value ?? "", out int userId);
+        var userIdClaim = context.User.FindFirst(AppClaimTypes.UserId)?.Value;
+
+        if (userIdClaim.IsNullOrEmpty())
+        {
+            return null;
+        }
+
+        var parsed = int.TryParse(userIdClaim, out int userId);
 
         if (!parsed)
         {
             return null;
         }
 
-        var user = userRepository.GetById(userId);
-
-        return user;
+        return userRepository.GetById(userId);
     }
 }

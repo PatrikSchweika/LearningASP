@@ -1,17 +1,13 @@
-using System.Diagnostics;
 using System.Text;
 
 using Data;
 using Data.Repositories;
 
 using LearningASP;
-using LearningASP.AutoMapperProfiles;
 using LearningASP.Model;
-using LearningASP.NewFolder;
 using LearningASP.Options;
 using LearningASP.Services;
 
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -41,9 +37,13 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddTransient<IPasswordHasher<User>, UserPasswordHasher>();
 
-// builder.Services.AddTransient<CustomMiddleware>();
-
+// builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 // builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+
+builder.Services.AddExceptionHandler<ExceptionHandler>();
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+builder.Services.AddProblemDetails();
 
 builder.Services.AddAuthentication(AppConstants.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -85,8 +85,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseExceptionHandler();
 
-// app.UseMiddleware<CustomMiddleware>();
+// app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Custom middleware
 // app.Use(async (context, next) =>

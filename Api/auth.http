@@ -1,6 +1,6 @@
 @LearningASP_HostAddress = http://localhost:5229
 
-POST {{LearningASP_HostAddress}}/Auth/register
+POST {{LearningASP_HostAddress}}/auth/register
 Content-Type: application/json
 
 {
@@ -10,9 +10,32 @@ Content-Type: application/json
   "LastName": "Smith"
 }
 
+### 
+
+POST {{LearningASP_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+  "Email": "johnyaa.smith@google.com",
+  "Password": "mypassword",
+  "FirstName": "Johny"
+}
+
 ###
 
-POST {{LearningASP_HostAddress}}/Auth/login
+POST {{LearningASP_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+  "Email": "jenny.smith@google.com",
+  "Password": "mypassword",
+  "FirstName": "Jenny",
+  "LastName": "Smith"
+}
+
+###
+
+POST {{LearningASP_HostAddress}}/auth/login
 Content-Type: application/json
 
 {
@@ -21,14 +44,21 @@ Content-Type: application/json
 }
 
 ###
+@Auth = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiam9obnkuc21pdGhAZ29vZ2xlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IkpvaG55IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6IlNtaXRoIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImV4cCI6MTcyNjgzMjU3MCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.mlHnyCcSTmUhk8DEID67QPC8dAfQzZ6xaoFCDZLb7vA
 
-GET {{LearningASP_HostAddress}}/Secret
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiam9obnkuc21pdGhAZ29vZ2xlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IkpvaG55IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6IlNtaXRoIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImV4cCI6MTcyNjgzMjU3MCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.mlHnyCcSTmUhk8DEID67QPC8dAfQzZ6xaoFCDZLb7vA
+###
+
+GET {{LearningASP_HostAddress}}/auth/user
+Authorization: {{Auth}}
+
+###
+
+GET {{LearningASP_HostAddress}}/secret
+Authorization: {{Auth}}
 
 
 ###
 
-GET {{LearningASP_HostAddress}}/User
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiam9obnkuc21pdGhAZ29vZ2xlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IkpvaG55IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc3VybmFtZSI6IlNtaXRoIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImV4cCI6MTcyNjgzMjU3MCwiaXNzIjoibG9jYWxob3N0IiwiYXVkIjoibG9jYWxob3N0In0.mlHnyCcSTmUhk8DEID67QPC8dAfQzZ6xaoFCDZLb7vA
-
+GET {{LearningASP_HostAddress}}/user
 Content-Type: application/json
+Authorization: {{Auth}}
