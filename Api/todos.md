@@ -3,8 +3,8 @@
 - [x] Configuration/Options object
 - [x] Database with entity framework
 - [x] Authentication (JWT tokens)
-- [ ] Configure CORS for API
-  - Only accessible through frontend
+- [x] Configure CORS for API
+  - Accessible from every url
 - [x] Frontend - Blazor, React?
 - [x] Create git repo
 - [ ] CI/CD Pipeline
@@ -18,8 +18,10 @@
     - [x] Tests
     - [x] Api
     - [x] Frontend
+- [x] Logging to ELK
 
 ## Minor todos
 
 - [ ] Reuse validation schema/attributes for similar DTOs?
 - [ ] Use AutoMapper for DTOs to entities?
+- [ ] HTTP only cookies for frontend to avoid token storing
