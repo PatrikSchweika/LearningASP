@@ -13,7 +13,8 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
+    environment: Master
     env:
       VITE_API_URL: ${{ vars.VITE_API_URL }}
 
