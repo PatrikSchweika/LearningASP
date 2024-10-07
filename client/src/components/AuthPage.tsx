@@ -8,7 +8,7 @@
   Typography,
 } from '@mui/material'
 
-export const LoginPage = () => {
+export const AuthPage = () => {
   return (
     <Layout>
       <PaperStyled>
@@ -40,9 +40,10 @@ export const LoginPage = () => {
 }
 
 const Layout = styled('div')`
+  padding-top: 40px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
 `
 
