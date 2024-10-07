@@ -7,18 +7,19 @@
   - Accessible from every url
 - [x] Frontend - Blazor, React?
 - [x] Create git repo
-- [ ] CI/CD Pipeline
+- [x] CI/CD Pipeline
     - [x] Run tests
     - [x] Run linter
     - [x] Deploy API to AWS
-    - [ ] Deploy frontend to AWS
-    - [ ] Setup AWS database
+    - [x] ~~Deploy frontend to AWS~~
+    - [x] ~~Setup AWS database~~
 - [x] Separate packages into different projects:
     - [x] Data (database and entities)
     - [x] Tests
     - [x] Api
     - [x] Frontend
 - [x] Logging to ELK
+- [x] Docker compose Api, DB and client
 
 ## Minor todos
 

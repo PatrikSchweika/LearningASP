@@ -31,6 +31,7 @@ export const HomePage = () => {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
+        <p>API url: {APP_CONFIG.apiUrl}</p>
         <p>Message from API: {apiMessage}</p>
       </div>
       <h2>Users</h2>

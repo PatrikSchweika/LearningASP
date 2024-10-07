@@ -1,0 +1,40 @@
+﻿services:
+  api:
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+    environment:
+      ConnectionStrings__UserDb: "Host=localhost;Port=5433;Database=LearningASP;Username=postgres;Password=post"
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      
+  client:
+    environment:
+      NODE_ENV: production
+
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8080
+    links:
+      - api
+    ports:
+      - "3000:3000"
+    
+  postgres:
+    image: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=post
+      - POSTGRES_DB=LearningASP

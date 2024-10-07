@@ -1,11 +1,10 @@
-﻿version: '3'
-services:
+﻿services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     environment:
       - discovery.type=single-node
     ports:
-      - 9200:9200
+      - "9200:9200"
     networks:
       - elk
 
@@ -15,16 +14,16 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - 5044:5044
-      - 5048:5048
-      - 5000:5000
+      - "5044:5044"
+      - "5048:5048"
+      - "5000:5000"
     networks:
       - elk
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
-      - 5601:5601
+      - "5601:5601"
     networks:
       - elk
 
